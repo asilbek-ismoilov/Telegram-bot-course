@@ -1,0 +1,3 @@
+pip install aiogram
+pip install aiogram==3.11.0
+pip uninstall aiogram

@@ -1,0 +1,12 @@
+pip install requests
+
+https://core.telegram.org/bots/api
+
+https://api.telegram.org/bot<token>/METHOD_NAME
+
+
+https://api.telegram.org/bot^^^/getMe
+
+https://api.telegram.org/bot^^^/sendMessage?chat_id=^^^&text=Birinchi botimiz
+
+
