@@ -8,8 +8,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from states import Registor
 
-TOKEN = "6858596228:AAEDJfHRoMZz_TnH-sbmTAdbe9jHwbPtkLM"
-ADMIN_ID =  5012784380
+TOKEN = ""
+ADMIN_ID =  0
 
 dp = Dispatcher()
 
@@ -64,11 +64,11 @@ async def register_yosh(message: Message, state:FSMContext):
 async def register_tel(message: Message, state:FSMContext):
     tel = message.text   
     await state.update_data(tel = tel)
-    await state.set_state(Registor.kurs)
+    await state.set_state(Registor.email)
     await message.answer("Emailni kiriting")
 
-@dp.message(F.text.regexp(r"[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+"), Registor.tel)
-async def register_tel(message: Message, state:FSMContext):
+@dp.message(F.text.regexp(r"[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+"), Registor.email)
+async def register_email(message: Message, state:FSMContext):
     email = message.text   
     await state.update_data(email = email)
     await state.set_state(Registor.kurs)
