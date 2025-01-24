@@ -2,7 +2,7 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher,types
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram import F
 from aiogram.types import Message, CallbackQuery
@@ -33,10 +33,10 @@ async def bag_pic(message:Message, state:FSMContext):
 @dp.message(F.photo, BagPic.background_pic)
 async def bag_picture(message:Message, state:FSMContext):
     file_id = message.photo[-1].file_id
-
     file = await bot.get_file(file_id)
     file_path = file.file_path
     photos_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
+
     await state.update_data(bg_url = photos_url)
     await state.set_state(BagPic.photo)
     await message.answer("Rasm kiriting")
@@ -48,7 +48,6 @@ async def picture(message:Message, state:FSMContext):
     bg_url = data.get("bg_url")
 
     file_id = message.photo[-1].file_id
-    
     file = await bot.get_file(file_id)
     file_path = file.file_path
     photos_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
@@ -71,6 +70,7 @@ async def bag_pic(message:Message, state:FSMContext):
     await message.answer("Fonni olib tashlash uchun rasim kiriting")
     await state.set_state(RemoveBg.removebg)
 
+
 @dp.message(F.photo, RemoveBg.removebg)
 async def picture(message:Message, state:FSMContext):
     file_id = message.photo[-1].file_id
@@ -84,6 +84,8 @@ async def picture(message:Message, state:FSMContext):
         await message.answer_document(document=types.input_file.BufferedInputFile(rasm,filename="no-bg.png"))
     
     await state.clear()
+
+# ❗️❗️❗️ Tekshiruv uchun
 
 #-------------------
 # finish remove bg 
@@ -102,7 +104,8 @@ async def photo(message:Message, state:FSMContext):
     file = await bot.get_file(file_id)
     file_path = file.file_path
     photos_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
-    rasm = remove_bg_color(photos_url)
+
+    rasm = remove_bg_color(photos_url, "white")
     text = "Rasmni orqa fonini qaysi ranga o'zgartirmoqchisiz tanlang !"
     if rasm:
         await message.answer_photo(photo=types.input_file.BufferedInputFile(rasm,filename="no-bg.png"),reply_markup=colors_button, caption=text)
@@ -111,10 +114,12 @@ async def photo(message:Message, state:FSMContext):
 # black
 @dp.callback_query(F.data=="black")
 async def black_handler(callback:CallbackQuery):
+    await callback.answer("⚫️ Qora rang")
     file_id = callback.message.photo[-1].file_id
     file = await bot.get_file(file_id)
     file_path = file.file_path
     photos_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
+    
     rasm = remove_bg_color(photos_url, "black")
     text = "Rasmni orqa fonini qaysi ranga o'zgartirmoqchisiz tanlang !"
     await callback.message.answer_photo(photo=types.input_file.BufferedInputFile(rasm,filename="no-bg.png"),reply_markup=colors_button, caption=text)
@@ -123,6 +128,7 @@ async def black_handler(callback:CallbackQuery):
 # red
 @dp.callback_query(F.data=="red")
 async def red_handler(callback:CallbackQuery):
+    await callback.answer("🔴 Qizil rang")
     file_id = callback.message.photo[-1].file_id
     file = await bot.get_file(file_id)
     file_path = file.file_path
@@ -145,6 +151,7 @@ async def bot_start():
 async def bot_start():
     for admin in ADMIN_ID:
         await bot.send_message(admin, "Bot to'xtadi ❗️")
+        
 
 async def main() -> None:
     global bot

@@ -1,6 +1,6 @@
 # from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-# Namuna inline
+
 # menu = InlineKeyboardMarkup(
 #     inline_keyboard=[
 #         [

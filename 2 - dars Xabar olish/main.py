@@ -2,15 +2,13 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher, F
-from aiogram.filters import CommandStart
-from aiogram.types import Message
+from aiogram.filters import CommandStart, Command
+from aiogram.types import Message, InputFile
 
 dp = Dispatcher()
 
-# Tokenni xavfsiz saqlash kerak, test kod uchun u yerda ko'rsatildi
 TOKEN = ""
 
-# Botni va Dispatcher obyektlarini yaratish
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 

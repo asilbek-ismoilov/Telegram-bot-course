@@ -52,10 +52,4 @@ computer_button = computer_button.as_markup(
     input_field_placeholder="Choise computer..."
 )
 
-# back = ReplyKeyboardMarkup(
-#     keyboard=[
-#         [KeyboardButton(text="Orqaga qaytish 🔙", request_location=True)]
-#     ],
-#     resize_keyboard=True,
-# )
 

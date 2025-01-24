@@ -2,7 +2,6 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher,F
-from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
@@ -60,7 +59,7 @@ async def register_kurs(message: Message, state:FSMContext):
     
 async def main():
     global bot
-    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
+    bot = Bot(TOKEN)
     await dp.start_polling(bot)
 
 

@@ -6,8 +6,8 @@ ID = ""
 # xabar yuborish
 
 # xabar = input("Xabar: ")
-# def send_message(token, chatid, text):
-#     url=f"https://api.telegram.org/bot{token}/sendMessage?chat_id={chatid}&text={text}"
+# def send_message(text):
+#     url=f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={ID}&text={text}"
 
 #     yuborish = requests.get(url)
 
@@ -16,7 +16,7 @@ ID = ""
 #     else:
 #         print(yuborish.status_code)
 
-# send_message(BOT_TOKEN, ID, xabar)
+# send_message(xabar)
 
 # rasm yuborish
 
@@ -27,20 +27,20 @@ ID = ""
 #     if respons.status_code == 200:
 #         print("xabaringiz yuborildi")
     
-# p_url = "https://jooinn.com/images/dry-old-tree-1.jpg"
+# p_url = "https://get.wallhere.com/photo/sport-sunset-car-vehicle-McLaren-sports-car-McLaren-MP4-12C-gray-performance-car-MP4-12C-supercar-land-vehicle-automotive-design-automobile-make-luxury-vehicle-mclaren-automotive-587950.jpg"
 # text = input("xabar: ")
 # send_photo(p_url, text)
 
 # qolganlar
 
-#send_message 
-#send_photo 
-#send_audio 
-#send_document 
-#send_video 
-#send_animation 
-#send_animation 
-#send_video_note 
-#send_sticker 
-#send_location 
-#send_contact 
+# send_message 
+# send_photo 
+# send_audio 
+# send_document 
+# send_video 
+# send_animation 
+# send_animation 
+# send_video_note 
+# send_sticker 
+# send_location 
+# send_contact 

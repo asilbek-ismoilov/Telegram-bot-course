@@ -7,3 +7,4 @@ class Registor(StatesGroup):
     tel = State()
     email = State()
     kurs = State()
+    

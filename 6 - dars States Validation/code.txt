@@ -3,3 +3,5 @@ https://ihateregex.io/
 regex for phone number validation
 
 regex for data validation examples
+
+F.text.regexp(r"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")

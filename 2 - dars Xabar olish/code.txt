@@ -1,3 +1,26 @@
 pip install aiogram
 pip install aiogram==3.11.0
 pip uninstall aiogram
+
+
+
+logging: Loglarni yozish uchun ishlatiladi. Bu orqali botning ishlash jarayoni haqida ma'lumotlar olish mumkin.
+
+sys: Standart Python moduli, asosan dastur oqimini boshqarish uchun ishlatiladi (masalan, chiqish oqimi).
+
+Dispatcher: Xabarlarni va boshqa hodisalarni boshqarish uchun ishlatiladi !
+@dp.message - dispecherga ro'yxatga olamiz. Ya'ni, botga kelgan xabarlar shu funksiyaga yo'naltiriladi.
+
+Message: Telegram xabar obyektlarini ifodalaydi.
+
+async def main():
+main: Botni ishga tushirish uchun asosiy funksiya.
+
+start_polling - botni polling rejimida ishlatadi. Bu bot Telegram serveriga muntazam murojaat qilib, yangi xabarlar bor-yo'qligini tekshirishini anglatadi.
+
+if __name__ == "__main__":
+: Kod faqat bevosita ishlatilganda bajariladi (import qilinganda emas).
+
+logging – dastur davomida ishlash jarayonini kuzatish uchun log yozuvlarini boshqarish uchun ishlatiladi.
+
+logging.INFO: Bu logging darajalaridan biridir va oddiy axborot (masalan, botning ishga tushganini yoki xabar kelganini) ko'rsatadi.

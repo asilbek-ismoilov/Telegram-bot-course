@@ -4,7 +4,7 @@ from io import BytesIO
 # Orqa fonga rasm qo'yish
 def bg_add_pic(Bg_pic_url, FILE_NAME):
     rasm = ''
-    API_KEY = 'pLDBBi1Y56s8HkBUdQZg47Tp'
+    API_KEY = 'sega6YLktXf3GknkMFFWdGPi'
 
     # Bg_pic_url dan rasmni yuklab olish
     bg_image_response = requests.get(Bg_pic_url)
@@ -12,7 +12,7 @@ def bg_add_pic(Bg_pic_url, FILE_NAME):
     if bg_image_response.status_code == 200:
         # Rasmni yuklab olib, xotirada ochish
         bg_image_file = BytesIO(bg_image_response.content)
-
+    
         # remove.bg API'ga rasmni yuborish
         response = requests.post(
             'https://api.remove.bg/v1.0/removebg',
@@ -37,7 +37,7 @@ def bg_add_pic(Bg_pic_url, FILE_NAME):
 # Orqa fonni o'chirish
 def remove_bg(FILE_NAME):
     rasm=''
-    API_KEY ='pLDBBi1Y56s8HkBUdQZg47Tp'
+    API_KEY ='sega6YLktXf3GknkMFFWdGPi'
 
     response = requests.post(
     'https://api.remove.bg/v1.0/removebg',
@@ -54,9 +54,9 @@ def remove_bg(FILE_NAME):
     return rasm
 
 # Orqafonga rang qo'shish
-def remove_bg_color(FILE_NAME, color="white"):
+def remove_bg_color(FILE_NAME, color="blue"):
     rasm=''
-    API_KEY ='pLDBBi1Y56s8HkBUdQZg47Tp'
+    API_KEY ='sega6YLktXf3GknkMFFWdGPi'
 
     response = requests.post(
     'https://api.remove.bg/v1.0/removebg',

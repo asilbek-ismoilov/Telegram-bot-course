@@ -6,7 +6,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from states import Registor
+from states import Registor 
 
 TOKEN = ""
 ADMIN_ID =  0
@@ -46,11 +46,6 @@ async def register_familiya(message: Message, state:FSMContext):
     await state.update_data(familiya = familiya)
     await state.set_state(Registor.yosh)
     await message.answer("Yoshingizni kiriting")
-
-@dp.message(Registor.familiya)
-async def register_first_name_del(message:Message, state:FSMContext):
-    await message.answer(text= "Familiyani to'g'ri kiriting!")
-    await message.delete()
 # FAMILIYA finish
 
 @dp.message(F.text, Registor.yosh)

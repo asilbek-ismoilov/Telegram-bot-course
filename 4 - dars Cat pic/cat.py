@@ -2,14 +2,13 @@ import requests
 
 def cat_img():
     url = "https://cataas.com/cat"
-
     response = requests.get(url)
 
     if response.status_code == 200:
-        mushuk = response.content
-        return mushuk
+        return response.content
     else:
         return "Xatolik qaytardi !"
+
 
 # def cat_gif():
 #     url = "https://cataas.com/cat/gif"

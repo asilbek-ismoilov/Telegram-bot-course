@@ -9,8 +9,8 @@ from states import Registor
 from button import menu
 from sqlite import Database  # SQLite'dan bazani import qilamiz
 
-TOKEN = "7270059308:AAFSm22a8TtM75alFQBQSAXMBxgwIDikIK4"
-ADMIN_ID = [5012784380]
+TOKEN = ""
+ADMIN_ID = []
 
 dp = Dispatcher()
 

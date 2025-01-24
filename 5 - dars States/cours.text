@@ -1,0 +1,12 @@
+@dp.message(F.text, Registor.ism)
+async def register_ism(message: Message, state:FSMContext):
+    ism = message.text   
+    await state.update_data(ism = ism)
+    await state.set_state(Registor.familiya)
+    await message.answer("Familiyani kiriting")
+
+
+update_data
+
+data = await state.get_data()
+ism = data.get("")
