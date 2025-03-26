@@ -1,0 +1,38 @@
+{
+    "en": {
+        "start" : "You have selected the English language",
+        "menu" : {
+            "button_1": "Sample button",
+            "button_2": "Inline button"
+        },
+        "simple" : "Simple text",
+        "line_menu" : {
+            "button_1": "Sample Inline button"
+        }
+        
+        
+    },
+    "uz": {
+        "start" : "Siz Uzbek tilini tanladingiz",
+        "menu" : {
+            "button_1" : "Namuna tugma",
+            "button_2" : "Inline tugma"
+        },
+        "simple" : "Oddiy matn",
+        "line_menu" : {
+            "button_1" : "Namuna Inline tugma"
+        }
+
+    },
+    "ru": {
+        "start" : "Вы выбрали Русский язык",
+        "menu" : {
+            "button_1": "Пример кнопки",
+            "button_2": "Inline-кнопка"
+        },
+        "simple" : "Обычный текст", 
+        "line_menu" : {
+            "button_1": "Пример Inline-кнопки"
+        }
+    }
+}

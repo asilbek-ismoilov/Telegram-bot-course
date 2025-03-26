@@ -1,6 +1,0 @@
-%Y: To'liq yil (masalan, 2024)
-%m: Oyning raqami (01 dan 12 gacha)
-%d: Kunning raqami (01 dan 31 gacha)
-%H: Soat (24 soatlik formatda)
-%M: Daqiqa
-%S: Sekund

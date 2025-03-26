@@ -63,12 +63,12 @@ c = con.cursor()
 
 # # Ma'lumotlarni yangilash ❗️:
 
-# c.execute("""UPDATE users SET salary = salary + 1000 WHERE job = "O'qituvchi" """)
+# c.execute("""UPDATE users SET WHERE job = "O'qituvchi" """)
 # print("\nO'qituvchilarning maoshi oshirildi!")
 
 # # Ma'lumotlarni o'chirish ❗️:
 
-# c.execute("DELETE FROM users WHERE age > 35")
+# c.execute("DELETE FROM users WHERE name = ?", (name,))
 # print("\nYoshi 35 dan katta foydalanuvchilar o'chirildi!")
 
 # # O'zgartirilgan ma'lumotlarni ko'rish ❗️:

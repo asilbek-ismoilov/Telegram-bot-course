@@ -2,13 +2,15 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher,F
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext 
-from state import Registor
+from state import Registor, Computer, Laptop
 from button import menu, computer_button, phone_button
 from baza import computers_info, phones_info
 from inline_button import menu_inline, saved
+from sqlite import get_computers
+from admin import IsBotAdminFilter
 
 TOKEN = ""
 ADMIN_ID = []
@@ -22,28 +24,33 @@ async def command_start_handler(message: Message):
     await message.answer(text, parse_mode="HTML", reply_markup=menu)
     await message.answer("Botdan foydalanish uchun tugmalardan birini tanlang !")
 
+
+@dp.message(F.text == "Orqaga qaytish 🔙")
+async def orqaga(message: Message):
+    await message.answer("Menu", reply_markup=menu)
+
+
 #  ❗️❗️❗️ NOUTBUKLAR ❗️❗️❗️
 
 @dp.message(F.text == "Laptop")
-async def laptop(message: Message):
+async def laptop(message: Message, state: FSMContext):
     await message.answer("Noutbuklardan birini tanlang", reply_markup=computer_button)
+    await state.set_state(Computer.computer)
 
-@dp.message(lambda message: message.text in computers_info.keys())
-async def computer_info(message: Message, state:FSMContext):
+@dp.message(F.text, Computer.computer)
+async def computer_info(message: Message, state: FSMContext):
+    computer_name = message.text
+    computer = get_computers(computer_name) 
 
-    await state.clear()
-
-    computer = message.text
-    info = computers_info[computer]
-    photo = info["photo"]
-    price = info["price"]
-    color = info["color"]
-
-    await state.update_data(computer = computer)
-
-    text = f"Nom : {computer} \nRang : {color} \nNarxi : ${price}"
-    await message.answer_photo(photo=photo, caption=text, reply_markup=saved)
-
+    if computer:
+        name, photo, price, color = computer[0]
+        text = f"Nom : {name}\nRang : {color}\nNarxi : ${price}"
+        
+        await state.update_data(computer=name)
+        await message.answer_photo(photo=photo, caption=text, reply_markup=saved)
+    else:
+        await message.answer("Bunday noutbuk topilmadi. Qayta urinib ko'ring.")
+        
 # ❗️❗️❗️ TELEFONLAR ❗️❗️❗️
 
 @dp.message(F.text == "Phone")
@@ -53,6 +60,7 @@ async def phone(message: Message):
 @dp.callback_query(lambda callback: callback.data in phones_info.keys())
 async def handle_phone_selection(callback: CallbackQuery, state: FSMContext):
     
+    await state.clear()
     await callback.answer(callback.data  )
 
     phone = callback.data  
@@ -66,7 +74,6 @@ async def handle_phone_selection(callback: CallbackQuery, state: FSMContext):
 
     text = f"Nom: {phone.capitalize()} \nRang: {color} \nNarxi: ${price}"
     await callback.message.answer_photo(photo=photo, caption=text, reply_markup=saved)
-    await state.clear()
 
 
 # ❗️❗️❗️ RO'YXATDAN O'TISH ❗️❗️❗️
@@ -140,9 +147,23 @@ async def about_us(message: Message):
     await message.answer("Bu 🤖 bot sizga savdo boti sifatida xizmat qila oladi !")
 
 
-@dp.message(F.text == "Orqaga qaytish 🔙")
-async def orqaga(message: Message):
-    await message.answer("Menu", reply_markup=menu)
+
+
+# ❗️❗️❗️  ADMIN  ❗️❗️❗️
+
+
+@dp.message(Command("admin"), IsBotAdminFilter(ADMIN_ID))
+async def admin(message: Message):
+    await message.answer("Admin panelga xush kelibsiz")
+
+@dp.message(F.text == "base add laptop", IsBotAdminFilter(ADMIN_ID))
+async def admin_add(message: Message, state: FSMContext):
+    await message.answer("Noutbuk nomini kiriting ✍️")
+    await state.set_state(Laptop.name)
+
+    
+
+
 
 
 

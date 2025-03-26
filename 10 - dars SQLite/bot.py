@@ -2,27 +2,27 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher, F
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from states import Registor
-from button import menu
-from sqlite import Database  # SQLite'dan bazani import qilamiz
+from button import menu, admin_button
+from sqlite import Database  
+from admin import IsBotAdminFilter
 
 TOKEN = ""
 ADMIN_ID = []
 
 dp = Dispatcher()
 
-db = Database()  # Baza obyektini yaratamiz
-db.create_table_users()  # Users jadvalini yaratish
+db = Database()  
+db.create_table_users()  
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message):
     full_name = message.from_user.full_name
     telegram_id = message.from_user.id
 
-    # Foydalanuvchini bazaga qo'shish
     db.add_user(telegram_id, full_name, None, None, None, None, None)
 
     text = f"Salom {full_name}, Ro'yxatdan o'tish botga hush kelibsiz"
@@ -78,8 +78,6 @@ async def register_kurs(message: Message, state: FSMContext):
 
     telegram_id = message.from_user.id
     full_name = message.from_user.full_name
-
-    # Foydalanuvchi ma'lumotlarini yangilab bazaga qo'shish
     
     db.add_user(telegram_id, full_name, ism, familiya, yosh, tel, kurs)
 
@@ -90,14 +88,18 @@ async def register_kurs(message: Message, state: FSMContext):
         await bot.send_message(chat_id=admin, text=text)
     await state.clear()
     
-@dp.message(F.text=="Foydalanuvchi soni 📊")
+@dp.message(Command("admin"), IsBotAdminFilter(ADMIN_ID))
+async def admin_command(message: Message):
+    await message.answer("Admin uchun buyruqlar", reply_markup=admin_button)
+
+
+@dp.message(F.text=="Foydalanuvchi soni 📊", IsBotAdminFilter(ADMIN_ID))
 async def register(message: Message):
     user_count = db.get_user_count()
     await message.answer(f"Bazada ro'yxatdan o'tgan foydalanuvchilar soni: {user_count}")
 
-@dp.message(F.text == "Foydalanuvchilar ro'yxati 📋")
+@dp.message(F.text == "Foydalanuvchilar ro'yxati 📋", IsBotAdminFilter(ADMIN_ID))
 async def all_user(message: Message):
-    # Barcha foydalanuvchilarni olib kelamiz
     users = db.get_all_users()
     
     if users:
@@ -116,10 +118,9 @@ async def bot_start():
 
 @dp.shutdown()
 async def bot_start():
-    db.close()  # Baza ulanishini yopamiz
+    db.close() 
     for admin in ADMIN_ID:
         await bot.send_message(admin, "Bot to'xtadi ❗️")
-
     
 async def main():
     global bot
